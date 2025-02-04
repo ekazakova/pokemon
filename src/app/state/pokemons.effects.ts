@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { PokemonsActions, PokemonsApiActions } from './pokemons.actions';
+import { PokemonsActions } from './pokemons.actions';
 import { of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Pokemon } from '../models/pokemon';

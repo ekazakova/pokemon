@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
-import { map, concatMap, concatAll } from 'rxjs/operators';
+import { map, concatMap } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon';
 
 interface PokemonRawData {
@@ -23,7 +23,6 @@ export class PokemonsService {
 
   constructor(private http: HttpClient) {}
 
-  // Fetch Pokémon with their details (id, name, and extra details)
   getPokemons(): Observable<Pokemon[]> {
     console.log("getPokemons")
     return this.http

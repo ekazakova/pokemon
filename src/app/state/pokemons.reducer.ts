@@ -12,8 +12,8 @@ export const pokemonsReducer = createReducer(
   on(PokemonsActions.updatePokemon, (state, { id, name, imageUrl,height, weight, moves, abilities }) => {
     return state.map(pokemon =>
       pokemon.id === id
-        ? { ...pokemon, name, imageUrl, height, weight, moves, abilities } // Update height and weight
-        : pokemon // Keep other Pokémon unchanged
+        ? { ...pokemon, name, imageUrl, height, weight, moves, abilities }
+        : pokemon
     );
   })
 );

@@ -11,7 +11,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss',
     standalone: true,
-    imports: [CommonModule,RouterLink],
+    imports: [CommonModule, RouterLink],
 })
 export class DetailsComponent implements OnInit {
     private store: Store = inject(Store);
@@ -25,7 +25,12 @@ export class DetailsComponent implements OnInit {
             this.router.navigate(['/']);
             return;
         }
-        this.pokemon$ = this.store.select(selectPokemonById(+id));
-     
+        this.pokemon$ = this.store.select(selectPokemonById(+id)).pipe(
+            tap(pokemon => {
+                if (!pokemon) {
+                    this.router.navigate(['../']);
+                }
+            })
+        );
     }
 }
