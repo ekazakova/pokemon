@@ -18,7 +18,6 @@ export class PokemonsEffects {
         this.actions$.pipe(
             ofType(PokemonsActions.init),
             switchMap(() => {
-                console.log("loadPokemons")
                 const data = localStorage.getItem(LOCAL_STORAGE_KEY);
                 if(data) {
                     const storedPokemons = JSON.parse(data);
@@ -41,8 +40,8 @@ export class PokemonsEffects {
                 ofType(PokemonsActions.updatePokemon),
                 withLatestFrom(this.store.select(selectPokemons)),
                 tap(([action, pokemons]) => {
-                    console.log(action);
-                    localStorage.setItem(LOCAL_STORAGE_KEY, pokemons.toString());
+                    console.log(action, pokemons);
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pokemons));
                 })
             ),
         { dispatch: false }

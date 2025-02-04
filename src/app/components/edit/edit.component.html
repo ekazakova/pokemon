@@ -1,1 +1,63 @@
-<p>edit works!</p>
+@let pokemon = pokemon$ | async;
+
+@if(pokemon) {
+    <article>
+        <h1>{{ pokemon.name }}</h1>
+        <img [src]="pokemon.imageUrl" [alt]="pokemon.name">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" formControlName="name" />
+                <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                  Name is required.
+                </div>
+              </div>
+              <div>
+                <label for="imageUrl">Image url:</label>
+                <input id="imageUrl" formControlName="imageUrl" />
+                <div *ngIf="form.get('imageUrl')?.invalid && form.get('imageUrl')?.touched">
+                    Image url is required.
+                </div>
+              </div>
+            <div>
+              <label for="height">Height:</label>
+              <input id="height" formControlName="height" />
+              <div *ngIf="form.get('height')?.invalid && form.get('height')?.touched">
+                Height is required.
+              </div>
+            </div>
+          
+            <div>
+              <label for="weight">Weight:</label>
+              <input id="weight" formControlName="weight" />
+              <div *ngIf="form.get('weight')?.invalid && form.get('weight')?.touched">
+                <div *ngIf="form.get('weight')?.errors?.['required']">Weight is required.</div>
+              </div>
+            </div>
+          
+            <button type="submit" [disabled]="form.invalid">Update</button>
+          </form>
+        <!-- <p>Height: {{ pokemon.height }}</p>
+        <p>Weight: {{ pokemon.weight }}</p> -->
+        <h2>Abilities</h2>
+        @if(pokemon.abilities && pokemon.abilities.length > 0) {
+            <ul>
+                @for (ability of pokemon.abilities; track ability) {
+                    <li>{{ability}}</li>
+                }
+            </ul>
+        } @else {
+            <p>{{ pokemon.name }} has no abilities :(</p>
+        }
+        <h2>Moves</h2>
+        @if(pokemon.moves && pokemon.moves.length > 0) {
+            <ul>
+                @for (move of pokemon.moves; track move) {
+                    <li>{{move}}</li>
+                }
+            </ul>
+        } @else {
+            <p>{{ pokemon.name }} does know any moves :(</p>
+        }
+    </article>
+}

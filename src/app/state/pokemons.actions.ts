@@ -6,7 +6,8 @@ export const PokemonsActions = createActionGroup({
   events: {
     'Init': emptyProps(),
     'Set': props<{pokemons: Pokemon[]}>(),
-    'Update Pokemon': props<{ name: string, image: string, height: number, weight: number, abilities: string[], moves: string[] }>(),
+    // 'Update Pokemon': props<{ id: number; name: string, imageUrl: string, height: number, weight: number, abilities: string[], moves: string[] }>(),
+    'Update Pokemon': props<{ id: number; name: string; imageUrl: string; height: number; weight: number }>(),
   },
 });
 
