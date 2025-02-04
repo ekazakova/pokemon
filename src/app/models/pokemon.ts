@@ -1,8 +1,9 @@
 export interface Pokemon {
+    id: number;
     name: string;
-    image: string;
-    height: number;
-    width: number;
-    abilities: string[];
-    moves: string[];
+    imageUrl?: string | undefined;
+    height?: number;
+    weight?: number;
+    abilities?: string[];
+    moves?: string[];
 }

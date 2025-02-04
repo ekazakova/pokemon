@@ -1,0 +1,10 @@
+@let pokemons = pokemons$ | async; 
+
+@for (pokemon of pokemons; track pokemon.id) {
+    <a [routerLink]="['/',pokemon.id]">
+        <p>{{ pokemon.id }} {{ pokemon.name }}</p>
+        <img [src]="pokemon.imageUrl" />
+    </a>
+} @empty {
+    <p>There are no pokemons.</p>
+}

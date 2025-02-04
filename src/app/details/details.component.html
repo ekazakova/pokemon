@@ -1,0 +1,31 @@
+@let pokemon = pokemon$ | async;
+
+@if(pokemon) {
+    <article>
+        <h1>{{ pokemon.name }}</h1>
+        <a [routerLink]="['edit']">Edit</a>
+        <img [src]="pokemon.imageUrl" [alt]="pokemon.name">
+        <p>Height: {{ pokemon.height }}</p>
+        <p>Weight: {{ pokemon.weight }}</p>
+        <h2>Abilities</h2>
+        @if(pokemon.abilities && pokemon.abilities.length > 0) {
+            <ul>
+                @for (ability of pokemon.abilities; track ability) {
+                    <li>{{ability}}</li>
+                }
+            </ul>
+        } @else {
+            <p>{{ pokemon.name }} has no abilities :(</p>
+        }
+        <h2>Moves</h2>
+        @if(pokemon.moves && pokemon.moves.length > 0) {
+            <ul>
+                @for (move of pokemon.moves; track move) {
+                    <li>{{move}}</li>
+                }
+            </ul>
+        } @else {
+            <p>{{ pokemon.name }} does know any moves :(</p>
+        }
+    </article>
+}
