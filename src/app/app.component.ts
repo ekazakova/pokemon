@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ListComponent } from './list/list.component';
+import { ListComponent } from './components/list/list.component';
 import { Store } from '@ngrx/store';
-import { PokemonsService } from './list/pokemons.service';
+import { PokemonsService } from './services/pokemons.service';
 import { selectPokemons } from './state/pokemons.selectors';
 import { PokemonsActions, PokemonsApiActions } from './state/pokemons.actions';
 import { AsyncPipe } from '@angular/common';

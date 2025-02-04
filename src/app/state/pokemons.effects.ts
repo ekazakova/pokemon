@@ -5,7 +5,7 @@ import { of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Pokemon } from '../models/pokemon';
 import { selectPokemons } from './pokemons.selectors';
-import { PokemonsService } from '../list/pokemons.service';
+import { PokemonsService } from '../services/pokemons.service';
 
 const LOCAL_STORAGE_KEY = 'pokemons';
 

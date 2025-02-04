@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectPokemonById } from '../state/pokemons.selectors';
+import { selectPokemonById } from '../../state/pokemons.selectors';
 import { CommonModule } from '@angular/common';
 import { Observable, tap } from 'rxjs';
-import { Pokemon } from '../models/pokemon';
+import { Pokemon } from '../../models/pokemon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({

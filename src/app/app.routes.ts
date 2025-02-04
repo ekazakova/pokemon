@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { DetailsComponent } from './details/details.component';
-import { EditComponent } from './edit/edit.component';
+import { ListComponent } from './components/list/list.component';
+import { DetailsComponent } from './components/details/details.component';
+import { EditComponent } from './components/edit/edit.component';
 
 export const routes: Routes = [
     {
