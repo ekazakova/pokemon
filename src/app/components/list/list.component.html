@@ -1,10 +1,27 @@
 @let pokemons = pokemons$ | async; 
+<section>
+  <h1 nz-typography>Pokemons</h1>
+  <nz-list nzGrid>
+    <div nz-row [nzGutter]="16">
+        @for (pokemon of pokemons; track pokemon.id) {
+        <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+          <nz-list-item>
+            <a [routerLink]="['/',pokemon.id]">
+                <nz-card nzHoverable [nzBodyStyle]="{textAlign: 'center'}" [nzTitle]="pokemon.name">
+                    <img alt="{{pokemon.name}}" [src]="pokemon.imageUrl" />
+                </nz-card>
+            </a>
+          </nz-list-item>
+        </div>
+      } @empty {
+        <!-- <div style="text-align: center;">
+            <nz-icon nzType="smile" style="font-size: 20px;" /> -->
+            <p>There are no pokemons.</p>
+        <!-- </div> -->
+    }
+    </div>
+  </nz-list>
 
-@for (pokemon of pokemons; track pokemon.id) {
-    <a [routerLink]="['/',pokemon.id]">
-        <p>{{ pokemon.id }} {{ pokemon.name }}</p>
-        <img [src]="pokemon.imageUrl" />
-    </a>
-} @empty {
-    <p>There are no pokemons.</p>
-}
+</section>
+
+  

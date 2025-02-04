@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { Pokemon } from '../../models/pokemon';
-import { selectPokemonById } from '../../state/pokemons.selectors';
-import { PokemonsActions } from '../../state/pokemons.actions';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import {
     FormArray,
@@ -13,13 +11,25 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { selectPokemonById } from '../../state/pokemons.selectors';
+import { PokemonsActions } from '../../state/pokemons.actions';
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrl: './edit.component.scss',
     standalone: true,
-    imports: [AsyncPipe, ReactiveFormsModule, CommonModule],
+    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule],
 })
 export class EditComponent {
     private store: Store = inject(Store);
@@ -34,14 +44,14 @@ export class EditComponent {
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
         if (!id) {
-            this.router.navigate(['/']);
+            this.onBack();
             return;
         }
         this.id = +id;
         this.pokemon$ = this.store.select(selectPokemonById(this.id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.router.navigate(['../']);
+                    this.onBack();
                 }
             }),
             tap(pokemon => {
@@ -99,5 +109,9 @@ export class EditComponent {
                 weight: this.form.value?.['weight'] || 0,
             })
         );
+    }
+
+    onBack() {
+        this.router.navigate(['../'], {relativeTo: this.route});
     }
 }

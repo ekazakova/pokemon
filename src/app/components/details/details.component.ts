@@ -1,17 +1,25 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectPokemonById } from '../../state/pokemons.selectors';
 import { CommonModule } from '@angular/common';
 import { Observable, tap } from 'rxjs';
-import { Pokemon } from '../../models/pokemon';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { Pokemon } from '../../models/pokemon';
+import { selectPokemonById } from '../../state/pokemons.selectors';
 
 @Component({
     selector: 'app-details',
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule],
 })
 export class DetailsComponent implements OnInit {
     private store: Store = inject(Store);
@@ -22,15 +30,18 @@ export class DetailsComponent implements OnInit {
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
         if (!id) {
-            this.router.navigate(['/']);
+            this.onBack();
             return;
         }
         this.pokemon$ = this.store.select(selectPokemonById(+id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.router.navigate(['../']);
+                    this.onBack();
                 }
             })
         );
+    }
+    onBack() {
+        this.router.navigate(['../'], {relativeTo: this.route});
     }
 }
