@@ -1,6 +1,6 @@
 @let pokemon = pokemon$ | async;
 
-@if(pokemon) {
+@if(pokemon && form) {
     <article>
         <h1>{{ pokemon.name }}</h1>
         <img [src]="pokemon.imageUrl" [alt]="pokemon.name">
@@ -21,43 +21,47 @@
               </div>
             <div>
               <label for="height">Height:</label>
-              <input id="height" formControlName="height" />
+              <input id="height" formControlName="height" type="number" />
+              
               <div *ngIf="form.get('height')?.invalid && form.get('height')?.touched">
-                Height is required.
+                <div *ngIf="form.get('height')?.errors?.['required']">Height is required.</div>
+                <div *ngIf="form.get('height')?.errors?.['pattern']">
+                    Height should be a number.
+                </div>
               </div>
             </div>
           
             <div>
               <label for="weight">Weight:</label>
-              <input id="weight" formControlName="weight" />
+              <input id="weight" formControlName="weight" type="number" />
               <div *ngIf="form.get('weight')?.invalid && form.get('weight')?.touched">
                 <div *ngIf="form.get('weight')?.errors?.['required']">Weight is required.</div>
+                <div *ngIf="form.get('weight')?.errors?.['pattern']">
+                    Weight should be a number.
+                </div>
               </div>
             </div>
-          
+            <div>
+                <h2>Abilities</h2>
+                <div formArrayName="abilities">
+                    <div *ngFor="let ability of abilities.controls; let i = index">
+                    <input [formControlName]="i" placeholder="Ability {{ i + 1 }}" />
+                    <button type="button" (click)="removeAbility(i)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" (click)="addAbility()">Add Ability</button>
+            </div>
+            <div>
+                <h2>Moves</h2>
+                <div formArrayName="moves">
+                    <div *ngFor="let move of moves.controls; let i = index">
+                    <input [formControlName]="i" placeholder="Move {{ i + 1 }}" />
+                    <button type="button" (click)="removeMove(i)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" (click)="addMove()">Add Move</button>
+            </div>
             <button type="submit" [disabled]="form.invalid">Update</button>
           </form>
-        <!-- <p>Height: {{ pokemon.height }}</p>
-        <p>Weight: {{ pokemon.weight }}</p> -->
-        <h2>Abilities</h2>
-        @if(pokemon.abilities && pokemon.abilities.length > 0) {
-            <ul>
-                @for (ability of pokemon.abilities; track ability) {
-                    <li>{{ability}}</li>
-                }
-            </ul>
-        } @else {
-            <p>{{ pokemon.name }} has no abilities :(</p>
-        }
-        <h2>Moves</h2>
-        @if(pokemon.moves && pokemon.moves.length > 0) {
-            <ul>
-                @for (move of pokemon.moves; track move) {
-                    <li>{{move}}</li>
-                }
-            </ul>
-        } @else {
-            <p>{{ pokemon.name }} does know any moves :(</p>
-        }
     </article>
 }
