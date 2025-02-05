@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PokemonsActions } from './pokemons.actions';
-import { of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { catchError, EMPTY, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pokemon } from '../models/pokemon';
@@ -31,6 +31,10 @@ export class PokemonsEffects {
                     switchMap((pokemons: Pokemon[]) => of(PokemonsActions.set({pokemons: pokemons, loading: false})))
                 )
                   
+            }),
+            catchError(e => {
+                console.log(e);
+                return of(PokemonsActions.set({pokemons: [], loading: false}));
             })
         )
     );
