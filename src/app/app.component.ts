@@ -12,7 +12,7 @@ import { selectLoading } from './state/pokemons.selectors';
   standalone: true,
   imports: [RouterOutlet, AsyncPipe, CommonModule, NzSpinModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.less'
 })
 export class AppComponent {
   private store: Store = inject(Store);
