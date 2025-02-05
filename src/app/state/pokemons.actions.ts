@@ -9,10 +9,3 @@ export const PokemonsActions = createActionGroup({
     'Update Pokemon': props<{ id: number; name: string; imageUrl: string; height: number; weight: number, moves: string[], abilities: string[] }>(),
   },
 });
-
-// export const PokemonsApiActions = createActionGroup({
-//   source: 'Pokemons API',
-//   events: {
-//     'Retrieved Pokemons List': props<{ pokemons: ReadonlyArray<Pokemon>, loading: boolean }>(),
-//   },
-// });

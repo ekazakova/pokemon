@@ -9,9 +9,6 @@ export const initialState: PokemonsState = {
 
 export const pokemonsReducer = createReducer(
   initialState,
-  // on(PokemonsApiActions.retrievedPokemonsList, (state, { pokemons }) => {
-  //   return {...state, pokemons: [...pokemons], loading: false}
-  // }),
   on(PokemonsActions.set, (state, action) => {
     return {...state, pokemons: [...action.pokemons], loading: false }
   }),
