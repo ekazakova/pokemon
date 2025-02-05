@@ -16,7 +16,7 @@ import { FALLBACK_IMAGE, LOCAL_STORAGE_KEY } from '../../utils/constants';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
+  styleUrl: './list.component.less',
   imports: [CommonModule, RouterModule, TitleCasePipe, NzTypographyModule, NzCardModule, NzGridModule, NzListModule, NzImageModule, NzResultModule, NzButtonModule],
   standalone: true
 })

@@ -20,7 +20,7 @@ import { FALLBACK_IMAGE } from '../../utils/constants';
 @Component({
     selector: 'app-details',
     templateUrl: './details.component.html',
-    styleUrl: './details.component.scss',
+    styleUrl: './details.component.less',
     standalone: true,
     imports: [CommonModule, RouterLink, TitleCasePipe, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzImageModule],
 })

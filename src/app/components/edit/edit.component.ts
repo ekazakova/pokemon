@@ -31,7 +31,7 @@ import { FALLBACK_IMAGE } from '../../utils/constants';
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
-    styleUrl: './edit.component.scss',
+    styleUrl: './edit.component.less',
     standalone: true,
     imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule, NzInputNumberModule, NzImageModule],
 })

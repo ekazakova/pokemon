@@ -6,9 +6,10 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
     selector: 'app-page-not-found',
-    imports: [NzButtonModule, NzResultModule],
     templateUrl: './page-not-found.component.html',
-    styleUrl: './page-not-found.component.scss',
+    styleUrl: './page-not-found.component.less',
+    imports: [NzButtonModule, NzResultModule],
+    standalone: true
 })
 export class PageNotFoundComponent {
     private router: Router = inject(Router);
