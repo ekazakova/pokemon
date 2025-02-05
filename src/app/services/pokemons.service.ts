@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map, concatMap } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon';
+import { LIMIT, OFFSET } from '../utils/constants';
 
 interface PokemonRawData {
   sprites: { home: { front_default: string }, front_default: string };
@@ -12,8 +13,6 @@ interface PokemonRawData {
   weight: number;
 }
 
-const OFFSET = 0;
-const LIMIT = 10;
 
 @Injectable({
   providedIn: 'root',

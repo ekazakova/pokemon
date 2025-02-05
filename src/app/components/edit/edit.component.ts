@@ -21,16 +21,19 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { selectPokemonById } from '../../state/pokemons.selectors';
 import { PokemonsActions } from '../../state/pokemons.actions';
+import { formArrayAllRequiredValidator, imageUrlValidator } from '../../utils/validators';
+import { FALLBACK_IMAGE } from '../../utils/constants';
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrl: './edit.component.scss',
     standalone: true,
-    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule, NzImageModule],
+    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule, NzInputNumberModule, NzImageModule],
 })
 export class EditComponent {
     private store: Store = inject(Store);
@@ -38,6 +41,7 @@ export class EditComponent {
     private router: Router = inject(Router);
     private fb: FormBuilder = inject(FormBuilder);
 
+    fallbackImg = FALLBACK_IMAGE;
     pokemon$!: Observable<Pokemon | undefined>;
     form!: FormGroup;
     id!: number;
@@ -58,7 +62,7 @@ export class EditComponent {
             tap(pokemon => {
                 this.form = this.fb.group({
                     name: [pokemon?.name, Validators.required],
-                    imageUrl: [pokemon?.imageUrl, Validators.required],
+                    imageUrl: [pokemon?.imageUrl, [Validators.required, imageUrlValidator()]],
                     height: [
                         pokemon?.height,
                         [Validators.required, Validators.pattern('^[0-9]*$')],
@@ -67,8 +71,8 @@ export class EditComponent {
                         pokemon?.weight,
                         [Validators.required, Validators.pattern('^[0-9]*$')],
                     ],
-                    moves: this.fb.array(pokemon?.moves || []),
-                    abilities: this.fb.array(pokemon?.abilities || []),
+                    moves: this.fb.array(pokemon?.moves || [], [formArrayAllRequiredValidator()]),
+                    abilities: this.fb.array(pokemon?.abilities || [], [formArrayAllRequiredValidator()]),
                 });
             })
         );
@@ -79,7 +83,7 @@ export class EditComponent {
     }
 
     addMove(): void {
-        this.moves.push(this.fb.control(''));
+        this.moves.push(this.fb.control('', Validators.required));
     }
 
     removeMove(index: number): void {
@@ -91,7 +95,7 @@ export class EditComponent {
     }
 
     addAbility(): void {
-        this.abilities.push(this.fb.control(''));
+        this.abilities.push(this.fb.control('', Validators.required));
     }
 
     removeAbility(index: number): void {
