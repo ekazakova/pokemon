@@ -33,13 +33,13 @@ export class DetailsComponent implements OnInit {
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
         if (!id) {
-            this.onBack();
+            this.router.navigate(['/error/404']);
             return;
         }
         this.pokemon$ = this.store.select(selectPokemonById(+id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.onBack();
+                    this.router.navigate(['/error/404']);
                 }
             })
         );

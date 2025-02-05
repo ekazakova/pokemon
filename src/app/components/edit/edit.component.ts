@@ -49,14 +49,14 @@ export class EditComponent {
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
         if (!id) {
-            this.onBack();
+            this.router.navigate(['/error/404']);
             return;
         }
         this.id = +id;
         this.pokemon$ = this.store.select(selectPokemonById(this.id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.onBack();
+                    this.router.navigate(['/error/404']);
                 }
             }),
             tap(pokemon => {
