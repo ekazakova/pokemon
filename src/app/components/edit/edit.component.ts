@@ -21,6 +21,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzImageModule } from 'ng-zorro-antd/image';
 import { selectPokemonById } from '../../state/pokemons.selectors';
 import { PokemonsActions } from '../../state/pokemons.actions';
 
@@ -29,7 +30,7 @@ import { PokemonsActions } from '../../state/pokemons.actions';
     templateUrl: './edit.component.html',
     styleUrl: './edit.component.scss',
     standalone: true,
-    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule],
+    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzButtonModule, NzFormModule, NzInputModule, NzImageModule],
 })
 export class EditComponent {
     private store: Store = inject(Store);

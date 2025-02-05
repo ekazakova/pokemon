@@ -11,16 +11,16 @@
         </nz-page-header>
         <!-- <a [routerLink]="['edit']">Edit</a> -->
          <div nz-flex nzJustify="center" nzAlign="center" nzGap="2rem">
-            <img [src]="pokemon.imageUrl" [alt]="pokemon.name">
+            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" width="96px" height="96px">
             <ul>
                 <li>Height: <strong>{{ pokemon.height }}</strong></li>
                 <li>Weight: <strong>{{ pokemon.weight }}</strong></li>
             </ul>
         </div>
         <nz-divider nzPlain nzVariant="solid"></nz-divider>
-        <h2 nz-typography>Abilities</h2>
+        <h4 nz-typography>Abilities</h4>
         @if(pokemon.abilities && pokemon.abilities.length > 0) {
-            <ul nz-row [nzGutter]="16">
+            <ul nz-row [nzGutter]="16" class="char-list">
                 @for (ability of pokemon.abilities; track ability) {
                     <li nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">{{ability}}</li>
                 }
@@ -28,9 +28,9 @@
         } @else {
             <p>{{ pokemon.name }} has no abilities :(</p>
         }
-        <h2 nz-typography>Moves</h2>
+        <h4 nz-typography>Moves</h4>
         @if(pokemon.moves && pokemon.moves.length > 0) {
-            <ul nz-row [nzGutter]="16">
+            <ul nz-row [nzGutter]="16" class="char-list">
                 @for (move of pokemon.moves; track move) {
                     <li nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">{{move}}</li>
                 }

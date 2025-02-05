@@ -16,9 +16,9 @@
             <input nz-input formControlName="imageUrl" id="imageUrl" />
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item nzJustify="center">
-          <img [src]="form.value.imageUrl" [alt]="pokemon.name" />
-        </nz-form-item>
+        <div nz-row nzJustify="center">
+          <img nz-image [nzSrc]="form.value.imageUrl" [alt]="pokemon.name" width="96px" height="96px" />
+        </div>
         <nz-form-item>
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="height">Height</nz-form-label>
           <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="heightErrorTpl">
@@ -47,8 +47,8 @@
             </ng-template>
           </nz-form-control>
         </nz-form-item>
-          <div>
-              <h2>Abilities</h2>
+          <div class="char-section">
+              <h4 nz-typography>Abilities</h4>
               <div formArrayName="abilities" nz-row [nzGutter]="24">
                 @for (ability of abilities.controls; track ability; let i = $index) {
                   <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
@@ -65,8 +65,8 @@
               </div>
               <button nz-button type="button" (click)="addAbility()"><nz-icon nzType="plus" /> Add Ability</button>
           </div>
-          <div>
-              <h2>Moves</h2>
+          <div class="char-section">
+              <h4 nz-typography>Moves</h4>
               <div formArrayName="moves" nz-row [nzGutter]="24">
                 @for (move of moves.controls; track move; let i = $index) {
                   <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
@@ -83,7 +83,7 @@
               </div>
               <button nz-button type="button" (click)="addMove()"><nz-icon nzType="plus" /> Add Move</button>
           </div>
-          <div>
+          <div nz-flex nzJustify="center">
             <button nz-button nzType="primary" nzSize="large" type="submit" [disabled]="form.invalid">Update</button>
           </div>
         </form>
