@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
-import { map, concatMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon';
 import { LIMIT, OFFSET } from '../utils/constants';
 
@@ -18,19 +18,15 @@ interface PokemonRawData {
   providedIn: 'root',
 })
 export class PokemonsService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon/'; // Base API URL
-
-  constructor(private http: HttpClient) {}
+  private apiUrl = `https://pokeapi.co/api/v2/pokemon/?offset=${OFFSET}&limit=${LIMIT}`;
+  private http: HttpClient = inject(HttpClient);
 
   getPokemons(): Observable<Pokemon[]> {
-    console.log("getPokemons")
+    
     return this.http
-      .get<{ results: { name: string; url: string }[] }>(
-        `https://pokeapi.co/api/v2/pokemon/?offset=${OFFSET}&limit=${LIMIT}`
-      )
+      .get<{ results: { name: string; url: string }[] }>(this.apiUrl)
       .pipe(
-        concatMap((response: { results: { name: string; url: string }[] }) => {
-          
+        mergeMap((response: { results: { name: string; url: string }[] }) => {
           const pokemonDetails$ = response.results.map((pokemon) => 
             this.getPokemonDetails(pokemon.url).pipe(
               map((details) => ({

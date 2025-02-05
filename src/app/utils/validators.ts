@@ -12,10 +12,10 @@ export function formArrayAllRequiredValidator(): ValidatorFn {
             if (emptyCtrl) {
                 return { allRequired: true };
             }
-            return null; // No errors, valid
+            return null;
         }
 
-        return null; // No errors, valid
+        return null;
     };
 }
 

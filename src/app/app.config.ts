@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,  // Register the interceptor here
+      useClass: ErrorInterceptor,
       multi: true
     },
     provideAnimations(),

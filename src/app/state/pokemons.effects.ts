@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PokemonsActions } from './pokemons.actions';
-import { catchError, EMPTY, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { catchError, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pokemon } from '../models/pokemon';
@@ -45,7 +45,6 @@ export class PokemonsEffects {
                 ofType(PokemonsActions.updatePokemon),
                 withLatestFrom(this.store.select(selectPokemons)),
                 tap(([action, pokemons]) => {
-                    // console.log(action, pokemons);
                     this.message.create('success', `${action.name} updated!`);
                     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pokemons));
                 })
