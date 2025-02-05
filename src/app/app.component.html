@@ -1,3 +1,11 @@
-<main>
-    <router-outlet></router-outlet>
-</main>
+@let loading = loading$ | async;
+
+@if(loading) {
+    <div class="loading-wrapper">
+        <nz-spin nzSimple nzSize="large"></nz-spin>
+    </div>
+} @else {
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+}

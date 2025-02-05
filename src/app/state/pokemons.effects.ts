@@ -22,13 +22,13 @@ export class PokemonsEffects {
                 const data = localStorage.getItem(LOCAL_STORAGE_KEY);
                 if(data) {
                     const storedPokemons = JSON.parse(data);
-                    return of(PokemonsActions.set({pokemons: storedPokemons}))
+                    return of(PokemonsActions.set({pokemons: storedPokemons, loading: false}))
                 }
                 return this.pokemonsService.getPokemons().pipe(
                     tap((pokemons: Pokemon[]) => {
                         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pokemons))
                     }),
-                    switchMap((pokemons: Pokemon[]) => of(PokemonsActions.set({pokemons: pokemons})))
+                    switchMap((pokemons: Pokemon[]) => of(PokemonsActions.set({pokemons: pokemons, loading: false})))
                 )
                   
             })
