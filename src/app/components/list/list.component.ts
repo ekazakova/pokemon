@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectPokemons } from '../../state/pokemons.selectors';
 import { RouterModule } from '@angular/router';
@@ -16,7 +17,7 @@ import { FALLBACK_IMAGE, LOCAL_STORAGE_KEY } from '../../utils/constants';
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
-  imports: [CommonModule, RouterModule, NzTypographyModule, NzCardModule, NzGridModule, NzListModule, NzImageModule, NzResultModule, NzButtonModule],
+  imports: [CommonModule, RouterModule, TitleCasePipe, NzTypographyModule, NzCardModule, NzGridModule, NzListModule, NzImageModule, NzResultModule, NzButtonModule],
   standalone: true
 })
 export class ListComponent {

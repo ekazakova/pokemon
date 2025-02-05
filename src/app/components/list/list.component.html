@@ -7,7 +7,7 @@
         <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
           <nz-list-item>
             <a [routerLink]="['/',pokemon.id]">
-                <nz-card nzHoverable [nzBodyStyle]="{textAlign: 'center'}" [nzTitle]="pokemon.name">
+                <nz-card nzHoverable [nzBodyStyle]="{textAlign: 'center'}" [nzTitle]="pokemon.name | titlecase ">
                     <img nz-image nzDisablePreview [nzSrc]="pokemon.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
                 </nz-card>
             </a>

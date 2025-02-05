@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -21,7 +22,7 @@ import { FALLBACK_IMAGE } from '../../utils/constants';
     templateUrl: './details.component.html',
     styleUrl: './details.component.scss',
     standalone: true,
-    imports: [CommonModule, RouterLink, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzImageModule],
+    imports: [CommonModule, RouterLink, TitleCasePipe, NzGridModule, NzTypographyModule, NzPageHeaderModule, NzSpaceModule, NzButtonModule, NzIconModule, NzFlexModule, NzDividerModule, NzImageModule],
 })
 export class DetailsComponent implements OnInit {
     private store: Store = inject(Store);

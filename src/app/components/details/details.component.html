@@ -1,7 +1,7 @@
 @let pokemon = pokemon$ | async;
 
 @if(pokemon) {
-    <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="{{ pokemon.name }}">
+    <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="{{ pokemon.name | titlecase  }}">
         <nz-page-header-extra>
             <button nz-button nzType="primary" [routerLink]="['edit']">
                 <nz-icon nzType="edit" />Edit
