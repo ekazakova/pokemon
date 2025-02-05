@@ -7,8 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Pokemon } from '../models/pokemon';
 import { selectPokemons } from './pokemons.selectors';
 import { PokemonsService } from '../services/pokemons.service';
-
-const LOCAL_STORAGE_KEY = 'pokemons';
+import { LOCAL_STORAGE_KEY } from '../utils/constants';
 
 export class PokemonsEffects {
     private store: Store<{ pokemons: Pokemon[] }> = inject(Store);

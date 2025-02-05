@@ -1,105 +1,105 @@
 @let pokemon = pokemon$ | async;
 
 @if(pokemon && form) {
-    <section>
-      <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="Edit {{ pokemon.name }}"></nz-page-header>
-      <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
-            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="Name is required">
-              <input nz-input formControlName="name" id="name" />
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="imageUrl">Image url</nz-form-label>
-          <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="imageErrorTpl">
-            <input nz-input formControlName="imageUrl" id="imageUrl" />
-            <ng-template #imageErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">
-                Image url is required
-              </ng-container>
-              <ng-container *ngIf="control.hasError('invalidImageUrl')">
-                Image url has to be a valid url
-              </ng-container>
-            </ng-template>
+  <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="Edit {{ pokemon.name }}"></nz-page-header>
+  <section>
+    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="Name is required">
+            <input nz-input formControlName="name" id="name" />
           </nz-form-control>
-        </nz-form-item>
-        <div nz-row nzJustify="center" class="mb-24">
-          <img nz-image nzDisablePreview [nzSrc]="form.value.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="imageUrl">Image url</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="imageErrorTpl">
+          <input nz-input formControlName="imageUrl" id="imageUrl" />
+          <ng-template #imageErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Image url is required
+            </ng-container>
+            <ng-container *ngIf="control.hasError('invalidImageUrl')">
+              Image url has to be a valid url
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row nzJustify="center" class="mb-24">
+        <img nz-image nzDisablePreview [nzSrc]="form.value.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
+      </div>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="height">Height</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="heightErrorTpl">
+          <input nz-input formControlName="height" id="height" type="number" />
+          <ng-template #heightErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Height is required.
+            </ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">
+              Height must be a number.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="weight">Weight</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="weightErrorTpl">
+          <input nz-input formControlName="weight" id="weight" type="number" />
+          <ng-template #weightErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Weight is required.
+            </ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">
+              Weight must be a number.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+        <div class="mb-24">
+            <h4 nz-typography>Abilities</h4>
+            <div formArrayName="abilities" nz-row [nzGutter]="24">
+              @for (ability of abilities.controls; track ability; let i = $index) {
+                <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+                  <nz-form-item>
+                    <nz-form-control nzErrorTip="Ability cannot be empty">
+                      <input nz-input [formControlName]="i" placeholder="Ability {{ i + 1 }}" [attr.id]="'ability_' + i" />
+                    </nz-form-control>
+                    <button nz-button (click)="removeAbility(i)" nzType="default" type="button">
+                      <nz-icon nzType="delete" />
+                    </button>
+                  </nz-form-item>
+                </div>
+              }
+            </div>
+            <div *ngIf="abilities.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
+              No empty abilities are allowed
+            </div>
+            <button nz-button type="button" (click)="addAbility()"><nz-icon nzType="plus" /> Add Ability</button>
         </div>
-        <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="height">Height</nz-form-label>
-          <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="heightErrorTpl">
-            <input nz-input formControlName="height" id="height" type="number" />
-            <ng-template #heightErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">
-                Height is required.
-              </ng-container>
-              <ng-container *ngIf="control.hasError('pattern')">
-                Height must be a number.
-              </ng-container>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="weight">Weight</nz-form-label>
-          <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="weightErrorTpl">
-            <input nz-input formControlName="weight" id="weight" type="number" />
-            <ng-template #weightErrorTpl let-control>
-              <ng-container *ngIf="control.hasError('required')">
-                Weight is required.
-              </ng-container>
-              <ng-container *ngIf="control.hasError('pattern')">
-                Weight must be a number.
-              </ng-container>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-          <div class="mb-24">
-              <h4 nz-typography>Abilities</h4>
-              <div formArrayName="abilities" nz-row [nzGutter]="24">
-                @for (ability of abilities.controls; track ability; let i = $index) {
-                  <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
-                    <nz-form-item>
-                      <nz-form-control nzErrorTip="Ability cannot be empty">
-                        <input nz-input [formControlName]="i" placeholder="Ability {{ i + 1 }}" [attr.id]="'ability_' + i" />
-                      </nz-form-control>
-                      <button nz-button (click)="removeAbility(i)" nzType="default" type="button">
-                        <nz-icon nzType="delete" />
-                      </button>
-                    </nz-form-item>
-                  </div>
-                }
-              </div>
-              <div *ngIf="abilities.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
-                No empty abilities are allowed
-              </div>
-              <button nz-button type="button" (click)="addAbility()"><nz-icon nzType="plus" /> Add Ability</button>
-          </div>
-          <div class="mb-24">
-              <h4 nz-typography>Moves</h4>
-              <div formArrayName="moves" nz-row [nzGutter]="24">
-                @for (move of moves.controls; track move; let i = $index) {
-                  <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
-                    <nz-form-item>
-                      <nz-form-control  nzErrorTip="Move cannot be empty">
-                        <input nz-input [formControlName]="i" placeholder="Move {{ i + 1 }}" [attr.id]="'move_' + i" />
-                      </nz-form-control>
-                      <button nz-button (click)="removeMove(i)" nzType="default" type="button">
-                        <nz-icon nzType="delete" />
-                      </button>
-                    </nz-form-item>
-                  </div>
-                }
-              </div>
-              <div *ngIf="moves.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
-                No empty moves are allowed
-              </div>
-              <button nz-button type="button" (click)="addMove()"><nz-icon nzType="plus" /> Add Move</button>
-          </div>
-          <div nz-flex nzJustify="center">
-            <button nz-button nzType="primary" nzSize="large" type="submit" [disabled]="form.invalid">Update</button>
-          </div>
-        </form>
-    </section>
+        <div class="mb-24">
+            <h4 nz-typography>Moves</h4>
+            <div formArrayName="moves" nz-row [nzGutter]="24">
+              @for (move of moves.controls; track move; let i = $index) {
+                <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+                  <nz-form-item>
+                    <nz-form-control  nzErrorTip="Move cannot be empty">
+                      <input nz-input [formControlName]="i" placeholder="Move {{ i + 1 }}" [attr.id]="'move_' + i" />
+                    </nz-form-control>
+                    <button nz-button (click)="removeMove(i)" nzType="default" type="button">
+                      <nz-icon nzType="delete" />
+                    </button>
+                  </nz-form-item>
+                </div>
+              }
+            </div>
+            <div *ngIf="moves.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
+              No empty moves are allowed
+            </div>
+            <button nz-button type="button" (click)="addMove()"><nz-icon nzType="plus" /> Add Move</button>
+        </div>
+        <div nz-flex nzJustify="center">
+          <button nz-button nzType="primary" nzSize="large" type="submit" [disabled]="form.invalid">Update</button>
+        </div>
+      </form>
+  </section>
 }

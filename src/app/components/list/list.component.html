@@ -8,16 +8,17 @@
           <nz-list-item>
             <a [routerLink]="['/',pokemon.id]">
                 <nz-card nzHoverable [nzBodyStyle]="{textAlign: 'center'}" [nzTitle]="pokemon.name">
-                    <img alt="{{pokemon.name}}" [src]="pokemon.imageUrl" width="96px" height="96px" />
+                    <img nz-image nzDisablePreview [nzSrc]="pokemon.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
                 </nz-card>
             </a>
           </nz-list-item>
         </div>
       } @empty {
-        <!-- <div style="text-align: center;">
-            <nz-icon nzType="smile" style="font-size: 20px;" /> -->
-            <p>There are no pokemons.</p>
-        <!-- </div> -->
+        <nz-result class="center" nzIcon="exclamation-circle-twotone" nzTitle="No Pokemons" nzSubTitle="There are no Pokemons! Refresh the page to fetch some!">
+          <div nz-result-extra>
+            <button nz-button nzType="primary" nzSize="large" (click)="onRefresh()">Refresh</button>
+          </div>
+        </nz-result>
     }
     </div>
   </nz-list>

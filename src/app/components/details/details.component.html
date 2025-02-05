@@ -1,17 +1,16 @@
 @let pokemon = pokemon$ | async;
 
 @if(pokemon) {
+    <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="{{ pokemon.name }}">
+        <nz-page-header-extra>
+            <button nz-button nzType="primary" [routerLink]="['edit']">
+                <nz-icon nzType="edit" />Edit
+            </button>
+        </nz-page-header-extra>
+    </nz-page-header>
     <section>
-        <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="{{ pokemon.name }}">
-            <nz-page-header-extra>
-                <button nz-button nzType="primary" [routerLink]="['edit']">
-                    <nz-icon nzType="edit" />Edit
-                </button>
-            </nz-page-header-extra>
-        </nz-page-header>
-        <!-- <a [routerLink]="['edit']">Edit</a> -->
-         <div nz-flex nzJustify="center" nzAlign="center" nzGap="2rem">
-            <img [src]="pokemon.imageUrl" [alt]="pokemon.name" width="96px" height="96px">
+        <div nz-flex nzJustify="center" nzAlign="center" nzGap="2rem">
+            <img nz-image nzDisablePreview [nzSrc]="pokemon.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
             <ul>
                 <li>Height: <strong>{{ pokemon.height }}</strong></li>
                 <li>Weight: <strong>{{ pokemon.weight }}</strong></li>
