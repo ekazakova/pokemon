@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { TitleCasePipe } from '@angular/common';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -40,8 +40,13 @@ export class DetailsComponent implements OnInit {
         this.pokemon$ = this.store.select(selectPokemonById(+id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.router.navigate(['/error/404']);
+                    throw new Error('No such pokemon found');
                 }
+            }),
+            catchError(e => {
+                console.log(e)
+                this.router.navigate(['/error/404']);
+                return of(undefined);
             })
         );
     }

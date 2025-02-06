@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { Pokemon } from '../../models/pokemon';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import {
@@ -56,10 +56,8 @@ export class EditComponent {
         this.pokemon$ = this.store.select(selectPokemonById(this.id)).pipe(
             tap(pokemon => {
                 if (!pokemon) {
-                    this.router.navigate(['/error/404']);
+                    throw new Error('No such pokemon found');
                 }
-            }),
-            tap(pokemon => {
                 this.form = this.fb.group({
                     name: [pokemon?.name, Validators.required],
                     imageUrl: [pokemon?.imageUrl, [Validators.required, imageUrlValidator()]],
@@ -74,6 +72,11 @@ export class EditComponent {
                     moves: this.fb.array(pokemon?.moves || [], [formArrayAllRequiredValidator()]),
                     abilities: this.fb.array(pokemon?.abilities || [], [formArrayAllRequiredValidator()]),
                 });
+            }),
+            catchError(e => {
+                console.log(e)
+                this.router.navigate(['/error/404']);
+                return of(undefined);
             })
         );
     }
@@ -114,6 +117,7 @@ export class EditComponent {
                 weight: this.form.value?.['weight'] || 0,
             })
         );
+        this.onBack();
     }
 
     onBack() {

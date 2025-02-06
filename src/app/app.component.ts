@@ -18,11 +18,10 @@ export class AppComponent {
   private store: Store = inject(Store);
   loading$!: Observable<boolean>;
 
-  constructor() {
-    this.loading$ = this.store.select(selectLoading);
-  }
+  constructor() {}
 
   ngOnInit() {
-    this.store.dispatch(PokemonsActions.init({loading: true}))
+    this.loading$ = this.store.select(selectLoading);
+    this.store.dispatch(PokemonsActions.init({loading: true}));
   }
 }

@@ -8,6 +8,7 @@ import { pokemonsReducer } from './state/pokemons.reducer';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PokemonsEffects } from './state/pokemons.effects';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TitleCasePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     },
     provideAnimations(),
     provideStore({pokemons: pokemonsReducer}),
-    provideEffects(PokemonsEffects)
+    provideEffects(PokemonsEffects),
+    TitleCasePipe
   ]
 };
