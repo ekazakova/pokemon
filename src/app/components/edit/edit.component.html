@@ -1,7 +1,13 @@
 @let pokemon = pokemon$ | async;
 
 @if(pokemon && form) {
-  <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="Edit {{ pokemon.name }}"></nz-page-header>
+  <nz-page-header (nzBack)="onBack()" nzBackIcon nzTitle="Edit {{ pokemon.name }}">
+    <nz-page-header-extra>
+      <button nz-button nzType="primary" (click)="onSubmit()" [disabled]="form.invalid">
+          <nz-icon nzType="save" /> Save
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
   <section>
     <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
       <nz-form-item>
@@ -97,8 +103,13 @@
             </div>
             <button nz-button type="button" (click)="addMove()"><nz-icon nzType="plus" /> Add Move</button>
         </div>
-        <div nz-flex nzJustify="center">
-          <button nz-button nzType="primary" nzSize="large" type="submit" [disabled]="form.invalid">Update</button>
+        <div nz-flex nzJustify="center" nzGap="2rem">
+          <button nz-button nzType="primary" nzSize="large" type="submit" [disabled]="form.invalid">
+            <nz-icon nzType="save" /> Save
+          </button>
+          <button nz-button nzSize="large" type="button" (click)="onBack()">
+            Cancel
+          </button>
         </div>
       </form>
   </section>
