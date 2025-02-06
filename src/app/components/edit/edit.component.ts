@@ -27,6 +27,7 @@ import { selectPokemonById } from '../../state/pokemons.selectors';
 import { PokemonsActions } from '../../state/pokemons.actions';
 import { Pokemon } from '../../models/pokemon';
 import { FALLBACK_IMAGE } from '../../utils/constants';
+import { sortAlphabetically } from '../../utils/sort';
 
 @Component({
     selector: 'app-edit',
@@ -109,8 +110,8 @@ export class EditComponent {
         this.store.dispatch(
             PokemonsActions.updatePokemon({
                 id: this.id,
-                moves: this.moves.value,
-                abilities: this.abilities.value,
+                moves: this.moves.value.sort(sortAlphabetically),
+                abilities: this.abilities.value.sort(sortAlphabetically),
                 name: this.form.value?.['name'],
                 imageUrl: this.form.value?.['imageUrl'],
                 height: this.form.value?.['height'] || 0,

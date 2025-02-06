@@ -4,6 +4,7 @@ import { Observable, forkJoin } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { Pokemon } from '../models/pokemon';
 import { LIMIT, OFFSET } from '../utils/constants';
+import { sortAlphabetically } from '../utils/sort';
 
 interface PokemonRawData {
   sprites: { home: { front_default: string }, front_default: string };
@@ -46,8 +47,8 @@ export class PokemonsService {
       map((data) => {
         const details = {
           imageUrl: data.sprites?.home?.front_default || data.sprites.front_default,
-          abilities: data.abilities.map((a) => a.ability.name),
-          moves: data.moves.map((m) => m.move.name),
+          abilities: data.abilities.map((a) => a.ability.name).sort(sortAlphabetically),
+          moves: data.moves.map((m) => m.move.name).sort(sortAlphabetically),
           height: data.height,
           weight: data.weight,
         };
