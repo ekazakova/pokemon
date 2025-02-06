@@ -30,7 +30,7 @@
           </ng-template>
         </nz-form-control>
       </nz-form-item>
-      <div nz-row nzJustify="center" class="mb-24">
+      <div nz-row nzJustify="center" class="mb-lg">
         <img nz-image nzDisablePreview [nzSrc]="form.value.imageUrl || fallbackImg" [alt]="pokemon.name" width="96px" height="96px" [nzFallback]="fallbackImg" />
       </div>
       <nz-form-item>
@@ -61,11 +61,11 @@
           </ng-template>
         </nz-form-control>
       </nz-form-item>
-        <div class="mb-24">
+        <div class="mb-lg">
             <h4 nz-typography>Abilities</h4>
-            <div formArrayName="abilities" nz-row [nzGutter]="24">
+            <ul formArrayName="abilities" class="colum-list">
               @for (ability of abilities.controls; track ability; let i = $index) {
-                <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+                <li>
                   <nz-form-item>
                     <nz-form-control nzErrorTip="Ability cannot be empty">
                       <input nz-input [formControlName]="i" placeholder="Ability {{ i + 1 }}" [attr.id]="'ability_' + i" />
@@ -74,19 +74,19 @@
                       <nz-icon nzType="delete" />
                     </button>
                   </nz-form-item>
-                </div>
+                </li>
               }
-            </div>
-            <div *ngIf="abilities.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
+            </ul>
+            <div *ngIf="abilities.hasError('allRequired')" nz-typography nzType="danger" class="mb-lg">
               No empty abilities are allowed
             </div>
             <button nz-button type="button" (click)="addAbility()"><nz-icon nzType="plus" /> Add Ability</button>
         </div>
-        <div class="mb-24">
+        <div class="mb-lg">
             <h4 nz-typography>Moves</h4>
-            <div formArrayName="moves" nz-row [nzGutter]="24">
+            <ul formArrayName="moves" class="colum-list">
               @for (move of moves.controls; track move; let i = $index) {
-                <div nz-col [nzXXl]="4" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+                <li>
                   <nz-form-item>
                     <nz-form-control  nzErrorTip="Move cannot be empty">
                       <input nz-input [formControlName]="i" placeholder="Move {{ i + 1 }}" [attr.id]="'move_' + i" />
@@ -95,10 +95,10 @@
                       <nz-icon nzType="delete" />
                     </button>
                   </nz-form-item>
-                </div>
+                </li>
               }
-            </div>
-            <div *ngIf="moves.hasError('allRequired')" nz-typography nzType="danger" class="group-error">
+            </ul>
+            <div *ngIf="moves.hasError('allRequired')" nz-typography nzType="danger" class="mb-lg">
               No empty moves are allowed
             </div>
             <button nz-button type="button" (click)="addMove()"><nz-icon nzType="plus" /> Add Move</button>
