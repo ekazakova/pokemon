@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Pokemon } from '../../models/pokemon';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import {
     FormArray,
@@ -23,9 +22,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { formArrayAllRequiredValidator, imageUrlValidator } from '../../utils/validators';
 import { selectPokemonById } from '../../state/pokemons.selectors';
 import { PokemonsActions } from '../../state/pokemons.actions';
-import { formArrayAllRequiredValidator, imageUrlValidator } from '../../utils/validators';
+import { Pokemon } from '../../models/pokemon';
 import { FALLBACK_IMAGE } from '../../utils/constants';
 
 @Component({

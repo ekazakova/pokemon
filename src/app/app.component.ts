@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { PokemonsActions } from './state/pokemons.actions';
 import { selectLoading } from './state/pokemons.selectors';
