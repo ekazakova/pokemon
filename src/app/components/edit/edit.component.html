@@ -63,7 +63,7 @@
       </nz-form-item>
         <div class="mb-lg">
             <h4 nz-typography>Abilities</h4>
-            <ul formArrayName="abilities" class="colum-list">
+            <ol formArrayName="abilities" class="colum-list">
               @for (ability of abilities.controls; track ability; let i = $index) {
                 <li>
                   <nz-form-item>
@@ -76,7 +76,7 @@
                   </nz-form-item>
                 </li>
               }
-            </ul>
+            </ol>
             <div *ngIf="abilities.hasError('allRequired')" nz-typography nzType="danger" class="mb-lg">
               No empty abilities are allowed
             </div>
@@ -84,7 +84,7 @@
         </div>
         <div class="mb-lg">
             <h4 nz-typography>Moves</h4>
-            <ul formArrayName="moves" class="colum-list">
+            <ol formArrayName="moves" class="colum-list">
               @for (move of moves.controls; track move; let i = $index) {
                 <li>
                   <nz-form-item>
@@ -97,7 +97,7 @@
                   </nz-form-item>
                 </li>
               }
-            </ul>
+            </ol>
             <div *ngIf="moves.hasError('allRequired')" nz-typography nzType="danger" class="mb-lg">
               No empty moves are allowed
             </div>

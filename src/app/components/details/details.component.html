@@ -19,21 +19,21 @@
         <nz-divider nzPlain nzVariant="solid"></nz-divider>
         <h4 nz-typography>Abilities</h4>
         @if(pokemon.abilities && pokemon.abilities.length > 0) {
-            <ul class="colum-list">
+            <ol class="colum-list">
                 @for (ability of pokemon.abilities; track ability) {
                     <li>{{ability}}</li>
                 }
-            </ul>
+            </ol>
         } @else {
             <p>{{ pokemon.name | titlecase }} has no abilities :(</p>
         }
         <h4 nz-typography>Moves</h4>
         @if(pokemon.moves && pokemon.moves.length > 0) {
-            <ul class="colum-list">
+            <ol class="colum-list">
                 @for (move of pokemon.moves; track move) {
                     <li>{{move}}</li>
                 }
-            </ul>
+            </ol>
         } @else {
             <p>{{ pokemon.name | titlecase }} does know any moves :(</p>
         }
